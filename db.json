@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@example.com",
+      "password": "admin123",
+      "role": "admin",
+      "name": "School Admin"
+    },
+    {
+      "id": 2,
+      "email": "student1@example.com",
+      "password": "studentpass",
+      "role": "student",
+      "name": "Student One",
+      "studentId": "S1001"
+    }
+  ],
+  "students": [
+    {
+      "id": 1,
+      "studentId": "S1001",
+      "name": "Student One",
+      "class": "JSS1",
+      "admissionNo": "ADM001"
+    }
+  ],
+  "results": [
+    {
+      "id": 1,
+      "studentId": "S1001",
+      "term": "First Term 2025",
+      "subjects": {
+        "Math": 78,
+        "English": 82,
+        "Physics": 75
+      },
+      "total": 235,
+      "grade": "A-"
+    }
+  ],
+  "announcements": [
+    {
+      "id": 1,
+      "title": "Term starts on September 1",
+      "body": "All students should return on September 1.",
+      "date": "2025-08-20"
+    }
+  ]
+}
