@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin</title><link rel="stylesheet" href="assets/css/style.css"></head><body>
+<div class="container" style="max-width:1000px;margin:20px auto">
+  <h2>Admin Panel</h2>
+  <div style="display:flex;gap:12px">
+    <div style="flex:1" class="card">
+      <h3>Create Notification</h3>
+      <input id="notifTitle" placeholder="Title"><br><br>
+      <textarea id="notifMsg" placeholder="Message"></textarea><br><br>
+      <button id="createNotif">Create</button>
+    </div>
+    <div style="flex:1" class="card">
+      <h3>Create Result (JSON)</h3>
+      <textarea id="resultJson" placeholder='{"studentId":"...","term":"1","session":"2024/2025","subjects":[{"name":"Math","score":80,"grade":"A"}]}' style="height:180px"></textarea><br>
+      <button id="createResult">Create Result</button>
+    </div>
+  </div>
+  <div style="margin-top:12px">
+    <h3>Users</h3>
+    <pre id="userList">Loading...</pre>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+async function loadUsers(){
+  const r = await apiFetch('/api/admin/users');
+  if(!r.ok) return alert('Admin auth required'), location.href='login.html';
+  document.getElementById('userList').innerText = JSON.stringify(r.data.users || [], null, 2);
+}
+
+document.getElementById('createNotif').onclick = async function(){
+  const title=document.getElementById('notifTitle').value.trim();
+  const message=document.getElementById('notifMsg').value.trim();
+  if(!title||!message) return alert('Title + message required');
+  const res = await apiFetch('/api/admin/notification', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ title, message }) });
+  alert(res.data.message || 'done');
+  loadUsers();
+};
+
+document.getElementById('createResult').onclick = async function(){
+  try{
+    const obj = JSON.parse(document.getElementById('resultJson').value);
+    const res = await apiFetch('/api/admin/result', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj) });
+    alert(res.data.message || 'done');
+  }catch(e){ alert('Invalid JSON') }
+};
+
+loadUsers();
+</script>
+</body></html>

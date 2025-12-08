@@ -1,0 +1,1 @@
+const API_BASE = 'https://school-files-1.onrender.com';

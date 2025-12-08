@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notifications</title><link rel="stylesheet" href="assets/css/style.css"></head><body>
+<div class="container card" style="max-width:720px;margin:40px auto">
+  <h2>Notifications</h2>
+  <pre id="notes">Loading...</pre>
+</div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(async ()=>{
+  const r = await apiFetch('/api/notifications');
+  document.getElementById('notes').innerText = JSON.stringify(r.data.notifications || [], null, 2);
+})();
+</script>
+</body></html>

@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Check Results</title><link rel="stylesheet" href="assets/css/style.css"></head><body>
+<div class="container card" style="max-width:720px;margin:40px auto">
+  <h2>Check Student Result</h2>
+  <div><input id="resEmail" placeholder="Student email"></div>
+  <div><input id="resTerm" placeholder="Term"></div>
+  <div><input id="resSession" placeholder="Session (e.g. 2024/2025)"></div>
+  <div><button id="checkBtn">Check</button></div>
+  <pre id="resOut"></pre>
+</div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.getElementById('checkBtn').onclick = async function(){
+  const email = document.getElementById('resEmail').value.trim();
+  const term = document.getElementById('resTerm').value.trim();
+  const session = document.getElementById('resSession').value.trim();
+  if(!email||!term||!session) return alert('All fields required');
+  const res = await apiFetch('/api/results/check', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, term, session }) });
+  document.getElementById('resOut').innerText = JSON.stringify(res.data.results || [], null, 2);
+}
+</script>
+</body></html>

@@ -1,0 +1,4 @@
+{
+  "API_BASE": "https://REPLACE_WITH_BACKEND_URL",
+  "notes": "Replace API_BASE in assets/js/config.js with your backend URL, e.g. https://school-backend.onrender.com"
+}
